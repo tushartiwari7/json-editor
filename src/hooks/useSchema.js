@@ -1,28 +1,37 @@
+import { useReducer } from "react";
+
+const reducerFn = (state, action) => {
+  switch (action.type) {
+    case "add": {
+      let uuid = self.crypto.randomUUID();
+      return { ...state, [uuid]: { ...action.payload, id: uuid } };
+    }
+
+    case "delete": {
+      const stateClone = structuredClone(state);
+      delete stateClone[action.payload];
+      return stateClone;
+    }
+
+    case "update": {
+      return {
+        ...state,
+        [action.payload.key]: {
+          ...state[action.payload.key],
+          ...action.payload.value,
+        },
+      };
+    }
+
+    default:
+      return state;
+  }
+};
+
 export const useSchema = () => {
-  const json = { a: 5, b: 4 };
-
-  const add = (key, value) => {
-    json[key] = value;
-    return json;
-  };
-
-  const del = (key) => {
-    delete json[key];
-    return json;
-  };
-
-  const update = (key, value) => {
-    json[key] = value;
-    return json;
-  };
-
-  const get = () => {
-    return json;
-  };
+  const [state, dispatch] = useReducer(reducerFn, {});
   return {
-    add,
-    delete: del,
-    update,
-    get,
+    state,
+    dispatch,
   };
 };

@@ -1,18 +1,10 @@
 import React from "react";
 import "./Wrapper.css";
-import { useSchema } from "../hooks/useSchema";
 import Property from "./Property";
+
+import { useWrapperProvider } from "./WrapperContext";
 const Wrapper = () => {
-  const { get, add } = useSchema();
-
-  const createNewProperty = () => {
-    add("temp", {
-      isRequired: false,
-      type: "string",
-      children: null,
-    });
-  };
-
+  const { state, createNewProperty } = useWrapperProvider();
   return (
     <section className="wrapper">
       <header className="header">
@@ -22,8 +14,8 @@ const Wrapper = () => {
         </button>
       </header>
       <ol>
-        {Object.entries(get()).map(([key, value]) => (
-          <Property key={key} data={{ key, value }} />
+        {Object.entries(state).map(([key, value]) => (
+          <Property key={key} data={value} />
         ))}
       </ol>
     </section>
