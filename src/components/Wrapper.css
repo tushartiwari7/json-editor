@@ -1,6 +1,5 @@
 .wrapper {
-  width: 50%;
-  min-width: 500px;
+  width: 100%;
 }
 .header {
   display: flex;
