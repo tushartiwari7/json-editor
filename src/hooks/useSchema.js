@@ -17,20 +17,28 @@ const formatSchema = (raw) => {
   return formatted;
 };
 
+export const schemaOperationsEnum = {
+  ADD: "ADD",
+  REMOVE: "REMOVE",
+  UPDATE: "UPDATE",
+  UPDATE_ALL: "UPDATE_ALL",
+  GET: "GET",
+};
+
 const reducerFn = (state, action) => {
   switch (action.type) {
-    case "add": {
+    case schemaOperationsEnum.ADD: {
       let uuid = self.crypto.randomUUID();
       return { ...state, [uuid]: { ...action.payload, id: uuid } };
     }
 
-    case "delete": {
+    case schemaOperationsEnum.REMOVE: {
       const stateClone = structuredClone(state);
       delete stateClone[action.payload];
       return stateClone;
     }
 
-    case "update": {
+    case schemaOperationsEnum.UPDATE: {
       return {
         ...state,
         [action.payload.key]: {
@@ -40,11 +48,11 @@ const reducerFn = (state, action) => {
       };
     }
 
-    case "update_all": {
+    case schemaOperationsEnum.UPDATE_ALL: {
       return action.payload;
     }
 
-    case "get": {
+    case schemaOperationsEnum.GET: {
       const formatted = formatSchema(state);
       console.log(formatted);
       return state;

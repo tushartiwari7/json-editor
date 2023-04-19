@@ -4,13 +4,15 @@ import "./Property.css";
 import ObjectWrap from "./ObjectWrap";
 import Switch from "./Switch";
 import { ReactComponent as TrashSvg } from "../assets/trash.svg";
+import { schemaOperationsEnum } from "../hooks/useSchema";
+import { defaultSchemaProperty } from "../utils";
 
 const Property = ({ data }) => {
   const { dispatch } = useObjectWrapProvider();
 
   const updateProperty = (value) =>
     dispatch({
-      type: "update",
+      type: schemaOperationsEnum.UPDATE,
       payload: { key: data.id, value },
     });
 
@@ -32,10 +34,7 @@ const Property = ({ data }) => {
       children: {
         ...data.children,
         [uuid]: {
-          title: "addName",
-          isRequired: false,
-          type: "string",
-          children: null,
+          ...defaultSchemaProperty,
           id: uuid,
         },
       },
@@ -46,7 +45,7 @@ const Property = ({ data }) => {
     updateProperty({ isRequired: isChecked });
 
   const removeProperty = () => {
-    dispatch({ type: "delete", payload: data.id });
+    dispatch({ type: schemaOperationsEnum.REMOVE, payload: data.id });
   };
 
   const observer = (updatedChild) => updateProperty({ children: updatedChild });
