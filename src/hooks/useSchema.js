@@ -1,4 +1,5 @@
 import { useReducer } from "react";
+import { validPropertyTypes } from "utils";
 
 const formatSchema = (raw) => {
   const formatted = {};
@@ -8,7 +9,7 @@ const formatSchema = (raw) => {
       formatted[element.title] = {
         isRequired: element.isRequired,
         value:
-          element.type === "object"
+          element.type === validPropertyTypes.OBJECT
             ? formatSchema(element.children)
             : element.type,
       };

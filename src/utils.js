@@ -54,3 +54,10 @@ export const defaultSchemaProperty = {
   type: "string",
   children: null,
 };
+
+export const validPropertyTypes = {
+  OBJECT: "object",
+  NUM: "number",
+  BOOLEAN: "boolean",
+  STRING: "string",
+};
