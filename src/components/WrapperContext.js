@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 const Context = React.createContext();
 import { toast } from "react-toastify";
 import { useSchema } from "../hooks/useSchema";
 
-const WrapperProvider = ({ children }) => {
-  const { state, dispatch } = useSchema();
+const WrapperProvider = ({ observer, defaultValue, children }) => {
+  const { state, dispatch } = useSchema(defaultValue);
+
+  useEffect(() => {
+    if (observer && Object.keys(state).length) {
+      observer(state);
+    }
+  }, [state]);
 
   const createNewProperty = () => {
     try {
@@ -18,10 +24,12 @@ const WrapperProvider = ({ children }) => {
         },
       });
     } catch (error) {
-      console.log({ error });
+      console.error({ error });
       toast(error.message);
     }
   };
+
+  const readSchema = () => dispatch({ type: "get" });
 
   const value = {
     state,
@@ -29,7 +37,16 @@ const WrapperProvider = ({ children }) => {
     createNewProperty,
   };
 
-  return <Context.Provider value={value}>{children}</Context.Provider>;
+  return (
+    <Context.Provider value={value}>
+      {children}
+      {!observer && (
+        <section>
+          <button onClick={readSchema}>SAVE</button>
+        </section>
+      )}
+    </Context.Provider>
+  );
 };
 
 export default WrapperProvider;

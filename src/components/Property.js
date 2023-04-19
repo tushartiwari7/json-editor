@@ -17,17 +17,23 @@ const Property = ({ data }) => {
   const changeInterfaceType = (event) => {
     const changeTo = event.target.value;
     if (changeTo === "object")
-      return updateProperty({ type: event.target.value, children: {} });
-    updateProperty({ type: event.target.value, children: null });
+      return updateProperty({ type: changeTo, children: {} });
+    updateProperty({ type: changeTo, children: null });
   };
 
   const removeProperty = () => {
     dispatch({ type: "delete", payload: data.id });
   };
 
+  const observer = (updatedChild) => updateProperty({ children: updatedChild });
+
   return (
     <li>
-      <input value={data.title} onChange={renameTitleHandler} />
+      <input
+        autoFocus={true}
+        value={data.title}
+        onChange={renameTitleHandler}
+      />
       <select value={data.type} onChange={changeInterfaceType}>
         <option>string</option>
         <option>object</option>
@@ -36,7 +42,7 @@ const Property = ({ data }) => {
       </select>
       <button onClick={removeProperty}>Delete</button>
       {data.children && (
-        <WrapperProvider>
+        <WrapperProvider observer={observer} defaultValue={data.children}>
           <Wrapper />
         </WrapperProvider>
       )}
