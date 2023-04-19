@@ -1,10 +1,9 @@
 import { ToastContainer } from "react-toastify";
-import Wrapper from "./components/Wrapper";
+import ObjectWrap from "./components/ObjectWrap";
 import "./styles.css";
 import "react-toastify/dist/ReactToastify.css";
 import { initSchema, toastOptions } from "./utils";
-import WrapperProvider from "./components/WrapperContext";
-import { useState } from "react";
+import ObjectWrapProvider from "./components/ObjectWrapContext";
 import { useSchema } from "./hooks/useSchema";
 export default function App() {
   const { state, dispatch } = useSchema(initSchema);
@@ -23,7 +22,7 @@ export default function App() {
 
   return (
     <div className="App center">
-      <WrapperProvider value={state}>
+      <ObjectWrapProvider value={state}>
         <section className="wrapper">
           <header className="header">
             <p className="text">Field Name and Type</p>
@@ -31,9 +30,9 @@ export default function App() {
               +
             </button>
           </header>
-          <Wrapper />
+          <ObjectWrap />
         </section>
-      </WrapperProvider>
+      </ObjectWrapProvider>
       <ToastContainer {...toastOptions} />
     </div>
   );

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useSchema } from "../hooks/useSchema";
 import _ from "lodash";
 
-const WrapperProvider = ({ observer, value, children }) => {
+const ObjectWrapProvider = ({ observer, value, children }) => {
   const { state, dispatch } = useSchema(value);
 
   useEffect(() => {
@@ -63,12 +63,14 @@ const WrapperProvider = ({ observer, value, children }) => {
   );
 };
 
-export default WrapperProvider;
+export default ObjectWrapProvider;
 
-export const useWrapperProvider = () => {
+export const useObjectWrapProvider = () => {
   const context = useContext(Context);
   if (!context) {
-    throw new Error("useWrapperProvider must be used within WrapperProvider");
+    throw new Error(
+      "useObjectWrapProvider must be used within ObjectWrapProvider"
+    );
   }
   return context;
 };

@@ -1,12 +1,12 @@
 import React from "react";
-import WrapperProvider, { useWrapperProvider } from "./WrapperContext";
+import ObjectWrapProvider, { useObjectWrapProvider } from "./ObjectWrapContext";
 import "./Property.css";
-import Wrapper from "./Wrapper";
+import ObjectWrap from "./ObjectWrap";
 import Switch from "./Switch";
 import { ReactComponent as TrashSvg } from "../assets/trash.svg";
 
 const Property = ({ data }) => {
-  const { dispatch } = useWrapperProvider();
+  const { dispatch } = useObjectWrapProvider();
 
   const updateProperty = (value) =>
     dispatch({
@@ -86,9 +86,9 @@ const Property = ({ data }) => {
       </summary>
       {data.children && (
         <section className="children">
-          <WrapperProvider observer={observer} value={data.children}>
-            <Wrapper />
-          </WrapperProvider>
+          <ObjectWrapProvider observer={observer} value={data.children}>
+            <ObjectWrap />
+          </ObjectWrapProvider>
         </section>
       )}
     </li>

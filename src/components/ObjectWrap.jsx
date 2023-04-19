@@ -1,10 +1,10 @@
 import React from "react";
-import "./Wrapper.css";
+import "./ObjectWrap.css";
 import Property from "./Property";
 
-import { useWrapperProvider } from "./WrapperContext";
-const Wrapper = () => {
-  const { state } = useWrapperProvider();
+import { useObjectWrapProvider } from "./ObjectWrapContext";
+const ObjectWrap = () => {
+  const { state } = useObjectWrapProvider();
   return (
     <ol className="list">
       {Object.entries(state).map(([key, value]) => (
@@ -14,4 +14,4 @@ const Wrapper = () => {
   );
 };
 
-export default Wrapper;
+export default ObjectWrap;
