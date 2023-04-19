@@ -4,7 +4,6 @@
 .header {
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid var(--color-border);
 }
 .header .text {
   font-size: 1.4rem;
@@ -21,4 +20,21 @@
 }
 .header .btn:hover {
   background-color: var(--color-hover);
+}
+
+.wrapper .list {
+  position: relative;
+  padding-inline-start: 4rem;
+}
+.list::before {
+  content: "";
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  height: calc(100% - 4rem);
+  margin-right: 5px;
+  width: 5px;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border-dark);
+  border-right: 0;
 }

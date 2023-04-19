@@ -2,15 +2,26 @@ import React, { useContext, useEffect } from "react";
 const Context = React.createContext();
 import { toast } from "react-toastify";
 import { useSchema } from "../hooks/useSchema";
+import _ from "lodash";
 
-const WrapperProvider = ({ observer, defaultValue, children }) => {
-  const { state, dispatch } = useSchema(defaultValue);
+const WrapperProvider = ({ observer, value, children }) => {
+  const { state, dispatch } = useSchema(value);
 
   useEffect(() => {
     if (observer && Object.keys(state).length) {
       observer(state);
     }
   }, [state]);
+
+  useEffect(() => {
+    const parentsInstanceOfChild = Object.keys(value).length;
+    const realChild = Object.keys(state).length;
+    if (parentsInstanceOfChild > realChild) {
+      // child is added by pressing parent property's '+' btn in his Context.
+      // so update the state by parent's instance which is latest.
+      dispatch({ type: "update_all", payload: value });
+    }
+  }, [value]);
 
   const createNewProperty = () => {
     try {
@@ -29,16 +40,19 @@ const WrapperProvider = ({ observer, defaultValue, children }) => {
     }
   };
 
-  const readSchema = () => dispatch({ type: "get" });
+  const readSchema = () => {
+    dispatch({ type: "get" });
+    toast("Logged the Schema in Console");
+  };
 
-  const value = {
+  const contextValue = {
     state,
     dispatch,
     createNewProperty,
   };
 
   return (
-    <Context.Provider value={value}>
+    <Context.Provider value={contextValue}>
       {children}
       {!observer && (
         <section>

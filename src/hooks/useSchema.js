@@ -40,6 +40,10 @@ const reducerFn = (state, action) => {
       };
     }
 
+    case "update_all": {
+      return action.payload;
+    }
+
     case "get": {
       const formatted = formatSchema(state);
       console.log(formatted);
