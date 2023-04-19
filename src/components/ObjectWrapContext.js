@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
-const Context = React.createContext();
 import { toast } from "react-toastify";
-import { schemaOperationsEnum, useSchema } from "../hooks/useSchema";
-import _ from "lodash";
-import { defaultSchemaProperty } from "../utils";
+import { schemaOperationsEnum, useSchema } from "hooks/useSchema";
+import { defaultSchemaProperty } from "utils";
+
+const Context = React.createContext();
 
 const ObjectWrapProvider = ({ observer, value, children }) => {
   const { state, dispatch } = useSchema(value);
@@ -37,7 +37,7 @@ const ObjectWrapProvider = ({ observer, value, children }) => {
   };
 
   const readSchema = () => {
-    dispatch({ type: schemaOperationsEnum.ADD });
+    dispatch({ type: schemaOperationsEnum.GET });
     toast("Logged the Schema in Console");
   };
 

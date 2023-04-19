@@ -1,10 +1,10 @@
 import { ToastContainer } from "react-toastify";
-import ObjectWrap from "./components/ObjectWrap";
-import "./styles.css";
+import ObjectWrap from "components/ObjectWrap";
+import "styles.css";
 import "react-toastify/dist/ReactToastify.css";
-import { defaultSchemaProperty, initSchema, toastOptions } from "./utils";
-import ObjectWrapProvider from "./components/ObjectWrapContext";
-import { schemaOperationsEnum, useSchema } from "./hooks/useSchema";
+import { defaultSchemaProperty, initSchema, toastOptions } from "utils";
+import ObjectWrapProvider from "components/ObjectWrapContext";
+import { schemaOperationsEnum, useSchema } from "hooks/useSchema";
 export default function App() {
   const { state, dispatch } = useSchema(initSchema);
 

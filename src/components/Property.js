@@ -3,9 +3,9 @@ import ObjectWrapProvider, { useObjectWrapProvider } from "./ObjectWrapContext";
 import "./Property.css";
 import ObjectWrap from "./ObjectWrap";
 import Switch from "./Switch";
-import { ReactComponent as TrashSvg } from "../assets/trash.svg";
-import { schemaOperationsEnum } from "../hooks/useSchema";
-import { defaultSchemaProperty } from "../utils";
+import { ReactComponent as TrashSvg } from "assets/trash.svg";
+import { schemaOperationsEnum } from "hooks/useSchema";
+import { defaultSchemaProperty } from "utils";
 
 const Property = ({ data }) => {
   const { dispatch } = useObjectWrapProvider();

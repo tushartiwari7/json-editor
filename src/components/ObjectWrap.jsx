@@ -1,8 +1,8 @@
 import React from "react";
 import "./ObjectWrap.css";
 import Property from "./Property";
-
 import { useObjectWrapProvider } from "./ObjectWrapContext";
+
 const ObjectWrap = () => {
   const { state } = useObjectWrapProvider();
   return (
