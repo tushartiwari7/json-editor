@@ -1,5 +1,22 @@
 import { useReducer } from "react";
 
+const formatSchema = (raw) => {
+  const formatted = {};
+  for (const key in raw) {
+    if (Object.hasOwnProperty.call(raw, key)) {
+      const element = raw[key];
+      formatted[element.title] = {
+        isRequired: element.isRequired,
+        value:
+          element.type === "object"
+            ? formatSchema(element.children)
+            : element.type,
+      };
+    }
+  }
+  return formatted;
+};
+
 const reducerFn = (state, action) => {
   switch (action.type) {
     case "add": {
@@ -23,13 +40,23 @@ const reducerFn = (state, action) => {
       };
     }
 
+    case "update_all": {
+      return action.payload;
+    }
+
+    case "get": {
+      const formatted = formatSchema(state);
+      console.log(formatted);
+      return state;
+    }
+
     default:
       return state;
   }
 };
 
-export const useSchema = () => {
-  const [state, dispatch] = useReducer(reducerFn, {});
+export const useSchema = (defaultState = {}) => {
+  const [state, dispatch] = useReducer(reducerFn, defaultState);
   return {
     state,
     dispatch,

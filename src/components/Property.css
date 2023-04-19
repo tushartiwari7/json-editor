@@ -1,0 +1,48 @@
+.property {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+}
+
+.property section {
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.inputs .title {
+  border: none;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.inputs .type {
+  border: none;
+  background: var(--color-bg);
+}
+
+.property .controls {
+  opacity: 0;
+}
+
+.property:hover .controls {
+  opacity: 1;
+}
+.property:hover {
+  background-color: var(--color-hover);
+}
+
+.controls .btn {
+  width: 2rem;
+  height: 2rem;
+}
+
+.controls .btn.add {
+  border: none;
+  background-color: var(--color-bg);
+}
+.switch {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
