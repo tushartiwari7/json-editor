@@ -1,55 +1,21 @@
 import React from "react";
-import WrapperProvider, { useWrapperProvider } from "./WrapperContext";
+import ObjectWrapProvider from "./ObjectWrapContext";
 import "./Property.css";
-import Wrapper from "./Wrapper";
+import ObjectWrap from "./ObjectWrap";
 import Switch from "./Switch";
-import { ReactComponent as TrashSvg } from "../assets/trash.svg";
+import { ReactComponent as TrashSvg } from "assets/trash.svg";
+import { usePropertyControls } from "hooks/usePropertyControls";
+import { validPropertyTypes } from "utils";
 
 const Property = ({ data }) => {
-  const { dispatch } = useWrapperProvider();
-
-  const updateProperty = (value) =>
-    dispatch({
-      type: "update",
-      payload: { key: data.id, value },
-    });
-
-  const renameTitleHandler = (event) =>
-    updateProperty({ title: event.target.value });
-
-  const changeInterfaceType = (event) => {
-    const changeTo = event.target.value;
-    if (changeTo === "object")
-      return updateProperty({ type: changeTo, children: {} });
-    updateProperty({ type: changeTo, children: null });
-  };
-
-  const addChild = () => {
-    let uuid = self.crypto.randomUUID();
-    console.log(uuid);
-    updateProperty({
-      type: "object",
-      children: {
-        ...data.children,
-        [uuid]: {
-          title: "addName",
-          isRequired: false,
-          type: "string",
-          children: null,
-          id: uuid,
-        },
-      },
-    });
-  };
-
-  const toggleIsRequired = (isChecked) =>
-    updateProperty({ isRequired: isChecked });
-
-  const removeProperty = () => {
-    dispatch({ type: "delete", payload: data.id });
-  };
-
-  const observer = (updatedChild) => updateProperty({ children: updatedChild });
+  const {
+    renameTitleHandler,
+    changeInterfaceType,
+    addChild,
+    toggleIsRequired,
+    removeProperty,
+    observer,
+  } = usePropertyControls(data);
 
   return (
     <li>
@@ -66,10 +32,11 @@ const Property = ({ data }) => {
             className="type"
             onChange={changeInterfaceType}
           >
-            <option>string</option>
-            <option>object</option>
-            <option>number</option>
-            <option>boolean</option>
+            {Object.values(validPropertyTypes).map((type) => (
+              <option value={type} key={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </section>
         <section className="controls">
@@ -86,9 +53,9 @@ const Property = ({ data }) => {
       </summary>
       {data.children && (
         <section className="children">
-          <WrapperProvider observer={observer} value={data.children}>
-            <Wrapper />
-          </WrapperProvider>
+          <ObjectWrapProvider observer={observer} value={data.children}>
+            <ObjectWrap />
+          </ObjectWrapProvider>
         </section>
       )}
     </li>

@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 import ReactSwitch from "react-switch";
-const Switch = ({ checked, onToggle, name }) => {
+const Switch = ({ checked, onToggle }) => {
   const id = useId();
   return (
     <>

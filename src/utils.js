@@ -47,3 +47,17 @@ export const initSchema = {
     id: "577a88aa-3eb7-4d68-8f13-3d7eaa6a02f9",
   },
 };
+
+export const defaultSchemaProperty = {
+  title: "addName",
+  isRequired: false,
+  type: "string",
+  children: null,
+};
+
+export const validPropertyTypes = {
+  OBJECT: "object",
+  NUM: "number",
+  BOOLEAN: "boolean",
+  STRING: "string",
+};

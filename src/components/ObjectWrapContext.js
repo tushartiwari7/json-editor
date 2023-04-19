@@ -1,10 +1,11 @@
 import React, { useContext, useEffect } from "react";
-const Context = React.createContext();
 import { toast } from "react-toastify";
-import { useSchema } from "../hooks/useSchema";
-import _ from "lodash";
+import { schemaOperationsEnum, useSchema } from "hooks/useSchema";
+import { defaultSchemaProperty } from "utils";
 
-const WrapperProvider = ({ observer, value, children }) => {
+const Context = React.createContext();
+
+const ObjectWrapProvider = ({ observer, value, children }) => {
   const { state, dispatch } = useSchema(value);
 
   useEffect(() => {
@@ -19,20 +20,15 @@ const WrapperProvider = ({ observer, value, children }) => {
     if (parentsInstanceOfChild > realChild) {
       // child is added by pressing parent property's '+' btn in his Context.
       // so update the state by parent's instance which is latest.
-      dispatch({ type: "update_all", payload: value });
+      dispatch({ type: schemaOperationsEnum.UPDATE_ALL, payload: value });
     }
   }, [value]);
 
   const createNewProperty = () => {
     try {
       dispatch({
-        type: "add",
-        payload: {
-          title: "addName",
-          isRequired: false,
-          type: "string",
-          children: null,
-        },
+        type: schemaOperationsEnum.ADD,
+        payload: defaultSchemaProperty,
       });
     } catch (error) {
       console.error({ error });
@@ -41,7 +37,7 @@ const WrapperProvider = ({ observer, value, children }) => {
   };
 
   const readSchema = () => {
-    dispatch({ type: "get" });
+    dispatch({ type: schemaOperationsEnum.GET });
     toast("Logged the Schema in Console");
   };
 
@@ -63,12 +59,14 @@ const WrapperProvider = ({ observer, value, children }) => {
   );
 };
 
-export default WrapperProvider;
+export default ObjectWrapProvider;
 
-export const useWrapperProvider = () => {
+export const useObjectWrapProvider = () => {
   const context = useContext(Context);
   if (!context) {
-    throw new Error("useWrapperProvider must be used within WrapperProvider");
+    throw new Error(
+      "useObjectWrapProvider must be used within ObjectWrapProvider"
+    );
   }
   return context;
 };
