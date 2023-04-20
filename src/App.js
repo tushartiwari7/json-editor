@@ -1,4 +1,4 @@
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import ObjectWrap from "components/ObjectWrap";
 import "styles.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -15,8 +15,13 @@ export default function App() {
     });
   };
 
+  const readSchema = () => {
+    dispatch({ type: schemaOperationsEnum.GET });
+    toast("Logged the Schema in Console");
+  };
+
   return (
-    <div className="App center">
+    <main className="App center">
       <ObjectWrapProvider value={state}>
         <section className="wrapper">
           <header className="header">
@@ -26,9 +31,14 @@ export default function App() {
             </button>
           </header>
           <ObjectWrap />
+          <footer className="footer">
+            <button className="btn" onClick={readSchema}>
+              Save
+            </button>
+          </footer>
         </section>
       </ObjectWrapProvider>
       <ToastContainer {...toastOptions} />
-    </div>
+    </main>
   );
 }
