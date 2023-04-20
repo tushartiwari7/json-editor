@@ -1,31 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,800&display=swap");
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 :root {
   font-size: 10px;
   --color-hover: #f2f2f3;
   --color-text-secondary: #7d7c83;
   --color-text: #000000;
-  --color-primary: #0066ff;
+  --color-primary: #000;
   --color-disabled: #ededee;
   --color-bg: #ffffff;
   --color-border: rgba(0, 0, 0, 0.075);
   --color-border-dark: rgba(0, 0, 0, 0.1);
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .App {
   font-family: "Poppins", sans-serif;
   text-align: center;
-}
-
-.center {
+  margin: 5rem auto;
   display: flex;
   flex-flow: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .btn {
   cursor: pointer;
+}
+
+.footer {
+  text-align: end;
+}
+.footer .btn {
+  padding: 5px 10px;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  border-radius: 5px;
+  font-size: 1.4rem;
 }

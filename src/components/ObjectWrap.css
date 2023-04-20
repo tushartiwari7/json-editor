@@ -25,6 +25,7 @@
 .wrapper .list {
   position: relative;
   padding-inline-start: 4rem;
+  transition: all 1s linear;
 }
 .list::before {
   content: "";
@@ -36,5 +37,6 @@
   width: 5px;
   background-color: var(--color-bg);
   border: 1px solid var(--color-border-dark);
+  transition: all 1s linear;
   border-right: 0;
 }

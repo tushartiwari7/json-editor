@@ -36,27 +36,13 @@ const ObjectWrapProvider = ({ observer, value, children }) => {
     }
   };
 
-  const readSchema = () => {
-    dispatch({ type: schemaOperationsEnum.GET });
-    toast("Logged the Schema in Console");
-  };
-
   const contextValue = {
     state,
     dispatch,
     createNewProperty,
   };
 
-  return (
-    <Context.Provider value={contextValue}>
-      {children}
-      {!observer && (
-        <section>
-          <button onClick={readSchema}>SAVE</button>
-        </section>
-      )}
-    </Context.Provider>
-  );
+  return <Context.Provider value={contextValue}>{children}</Context.Provider>;
 };
 
 export default ObjectWrapProvider;
